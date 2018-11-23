@@ -2273,6 +2273,7 @@ transformIndexConstraint(Constraint *constraint, CreateStmtContext *cxt)
 			ListCell   *columns;
 			if (cxt->isalter)
 			{
+				// TODO: DRY this up with the non-ALTER case:
 				Relation rel = cxt->rel;
 				/*
 				 * Look up columns on existing table.
@@ -2281,7 +2282,8 @@ transformIndexConstraint(Constraint *constraint, CreateStmtContext *cxt)
 				{
 					Form_pg_attribute attr = TupleDescAttr(rel->rd_att, i);
 					const char *attname = NameStr(attr->attname);
-					if (strcmp(attname, without_overlaps_str) == 0) {
+					if (strcmp(attname, without_overlaps_str) == 0)
+					{
 						if (type_is_range(attr->atttypid))
 						{
 							found = true;
