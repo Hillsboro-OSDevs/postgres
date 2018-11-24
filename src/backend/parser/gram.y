@@ -3775,7 +3775,7 @@ columnList:
 		;
 
 withoutOverlapsClause:
-			',' WITHOUT OVERLAPS columnElem { $$ = $4; }
+			',' columnElem WITHOUT OVERLAPS { $$ = $2; }
 			| /*EMPTY*/               { $$ = NULL; }
 	;
 
